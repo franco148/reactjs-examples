@@ -27,6 +27,16 @@ class App extends Component {
     });
   }
 
+  nameChangeHandler = (event) => {
+    this.setState({
+      persons: [
+        { name: 'TwoWay Binding', age: 30 },
+        { name: event.target.value, age: 27 },
+        { name: 'Mireya', age: 18 }
+      ]
+    });
+  }
+
   render() {
     return (
       // ! Important: We can only have one root element in JSX code.
@@ -43,7 +53,8 @@ class App extends Component {
         <Person
           name={this.state.persons[0].name}
           age={this.state.persons[0].age}
-          click={this.switchNameHandler.bind(this, 'Robert!')} />
+          click={this.switchNameHandler.bind(this, 'Robert!')}
+          changed={this.nameChangeHandler} />
         <Person
           name={this.state.persons[1].name}
           age={this.state.persons[1].age} >My Hobbies: Reading</Person>
