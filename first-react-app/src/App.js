@@ -10,7 +10,9 @@ class App extends Component {
       // ! Important: We can only have one root element in JSX code.
       <div className="App">
         <h1>Hi, I'm a React App</h1>
-        <Person />
+        <Person name="Franco" age="30" />
+        <Person name="Fernando" age="27" >My Hobbies: Reading</Person>
+        <Person name="Mireya" age="20" />
       </div>
     );
   }

@@ -1,8 +1,16 @@
 import React from 'react';
 
 // ES6 Approach - Functional Component
-const person = () => {
-    return <p>I'm a Person!</p>;
+const person = ({ name, age, children }) => {
+  // ! When using class-based components, props should be used as: this.props
+  return (
+    <div>
+      <p>I'm a {name} and I am {age} years old!</p>
+
+      {/* For accessing to the childre props, it has an special property called: children */}
+      <p>{children}</p>
+    </div>
+  );
 };
 
 export default person;
