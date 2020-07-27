@@ -15,12 +15,12 @@ class App extends Component {
     ]
   }
 
-  switchNameHandler = () => {
+  switchNameHandler = (newName) => {
     // console.log('Was clicked!');
     // this.state.persons[0].name = 'Franco Fral'; // this does not work
     this.setState({
       persons: [
-        { name: 'Franco Fral', age: 30 },
+        { name: newName, age: 30 },
         { name: 'Fernando', age: 27 },
         { name: 'Mireya', age: 19 }
       ]
@@ -32,11 +32,24 @@ class App extends Component {
       // ! Important: We can only have one root element in JSX code.
       <div className="App">
         <h1>Hi, I'm a React App</h1>
-        {/* https://reactjs.org/docs/events.html#supported-events */}
-        <button onClick={this.switchNameHandler}>Switch Name</button>
-        <Person name={this.state.persons[0].name} age={this.state.persons[0].age} />
-        <Person name={this.state.persons[1].name} age={this.state.persons[1].age} >My Hobbies: Reading</Person>
-        <Person name={this.state.persons[2].name} age={this.state.persons[2].age} />
+        {/* https://reactjs.org/docs/events.html#supported-events
+            If we want to sent parameters to the eventHandler, we
+            can do the following:
+
+            Approach 1: this.switchNameHandler.bind(this, 'parameter')
+            Approach 2: onClick={() => this.switchNameHandler('parameter')}
+        */}
+        <button onClick={this.switchNameHandler.bind(this, 'Franco Robert')}>Switch Name</button>
+        <Person
+          name={this.state.persons[0].name}
+          age={this.state.persons[0].age}
+          click={this.switchNameHandler.bind(this, 'Robert!')} />
+        <Person
+          name={this.state.persons[1].name}
+          age={this.state.persons[1].age} >My Hobbies: Reading</Person>
+        <Person
+          name={this.state.persons[2].name}
+          age={this.state.persons[2].age} />
       </div>
     );
   }
