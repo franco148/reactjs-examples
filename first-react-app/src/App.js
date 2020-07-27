@@ -15,12 +15,25 @@ class App extends Component {
     ]
   }
 
+  switchNameHandler = () => {
+    // console.log('Was clicked!');
+    // this.state.persons[0].name = 'Franco Fral'; // this does not work
+    this.setState({
+      persons: [
+        { name: 'Franco Fral', age: 30 },
+        { name: 'Fernando', age: 27 },
+        { name: 'Mireya', age: 19 }
+      ]
+    });
+  }
+
   render() {
     return (
       // ! Important: We can only have one root element in JSX code.
       <div className="App">
         <h1>Hi, I'm a React App</h1>
-        <button>Switch Name</button>
+        {/* https://reactjs.org/docs/events.html#supported-events */}
+        <button onClick={this.switchNameHandler}>Switch Name</button>
         <Person name={this.state.persons[0].name} age={this.state.persons[0].age} />
         <Person name={this.state.persons[1].name} age={this.state.persons[1].age} >My Hobbies: Reading</Person>
         <Person name={this.state.persons[2].name} age={this.state.persons[2].age} />
