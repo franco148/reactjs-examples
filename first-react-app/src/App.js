@@ -38,6 +38,15 @@ class App extends Component {
   }
 
   render() {
+
+    const style = {
+      backgroundColor: 'white',
+      font: 'inherit',
+      border: '1px solid blue',
+      padding: '8px',
+      cursor: 'pointer'
+    };
+
     return (
       // ! Important: We can only have one root element in JSX code.
       <div className="App">
@@ -49,7 +58,9 @@ class App extends Component {
             Approach 1: this.switchNameHandler.bind(this, 'parameter')
             Approach 2: onClick={() => this.switchNameHandler('parameter')}
         */}
-        <button onClick={this.switchNameHandler.bind(this, 'Franco Robert')}>Switch Name</button>
+        <button
+          style={style}
+          onClick={this.switchNameHandler.bind(this, 'Franco Robert')}>Switch Name</button>
         <Person
           name={this.state.persons[0].name}
           age={this.state.persons[0].age}
