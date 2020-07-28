@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 
+import Radium, { StyleRoot } from 'radium';
+
 import './App.css';
 import Person from './Person/Person';
 
@@ -70,7 +72,12 @@ class App extends Component {
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
-      cursor: 'pointer'
+      cursor: 'pointer',
+      // The following work with Radium
+      ':hover': {
+        backgroundColor: 'lightgreen',
+        color: 'black'
+      }
     };
 
     let persons = null;
@@ -98,7 +105,11 @@ class App extends Component {
             age={this.state.persons[2].age} /> */}
         </div>
       );
-      style.backgroundColor = 'yellow';
+      style.backgroundColor = 'red';
+      style[':hover'] = {
+        backgroundColor: 'salmon',
+        color: 'blue'
+      };
     }
 
     // let classes = ['red', 'bold'].join(' ');
@@ -112,23 +123,28 @@ class App extends Component {
     }
 
     return (
+      // ? We need to wrap our component with StyleRoot for avoiding an eror when
+      // ? using MediaQueries with Radium
+
       // ! Important: We can only have one root element in JSX code.
-      <div className="App">
-        <h1>Hi, I'm a React App</h1>
-        <p className={classes.join(' ')}>This is really working!!!</p>
-        {/* https://reactjs.org/docs/events.html#supported-events
-            If we want to sent parameters to the eventHandler, we
-            can do the following:
+      <StyleRoot>
+        <div className="App">
+          <h1>Hi, I'm a React App</h1>
+          <p className={classes.join(' ')}>This is really working!!!</p>
+          {/* https://reactjs.org/docs/events.html#supported-events
+              If we want to sent parameters to the eventHandler, we
+              can do the following:
 
-            Approach 1: this.switchNameHandler.bind(this, 'parameter')
-            Approach 2: onClick={() => this.switchNameHandler('parameter')}
-        */}
-        <button
-          style={style}
-          onClick={this.togglePersonsHandler}>Toggle Persons</button>
+              Approach 1: this.switchNameHandler.bind(this, 'parameter')
+              Approach 2: onClick={() => this.switchNameHandler('parameter')}
+          */}
+          <button
+            style={style}
+            onClick={this.togglePersonsHandler}>Toggle Persons</button>
 
-        {persons}
-      </div>
+          {persons}
+        </div>
+      </StyleRoot>
     );
   }
 
@@ -140,4 +156,7 @@ class App extends Component {
   // }
 }
 
-export default App;
+// ? RADIUM(App): This is called a higher order component, at the end it is jus
+// ? a component wrapping your component adding, kind of injection some extra
+// ? functionality.
+export default Radium(App);
