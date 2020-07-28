@@ -3,6 +3,7 @@ import logo from './logo.svg';
 
 import './App.css';
 import Person from './Person/Person';
+import person from './Person/Person';
 
 class App extends Component {
 
@@ -53,6 +54,25 @@ class App extends Component {
       cursor: 'pointer'
     };
 
+    let persons = null;
+    if (this.state.showPersons) {
+      persons = (
+        <div>
+          <Person
+            name={this.state.persons[0].name}
+            age={this.state.persons[0].age}
+            click={this.switchNameHandler.bind(this, 'Robert!')}
+            changed={this.nameChangeHandler} />
+          <Person
+            name={this.state.persons[1].name}
+            age={this.state.persons[1].age} >My Hobbies: Reading</Person>
+          <Person
+            name={this.state.persons[2].name}
+            age={this.state.persons[2].age} />
+        </div>
+      );
+    }
+
     return (
       // ! Important: We can only have one root element in JSX code.
       <div className="App">
@@ -67,21 +87,8 @@ class App extends Component {
         <button
           style={style}
           onClick={this.togglePersonsHandler}>Toggle Persons</button>
-        { this.state.showPersons ?
-          <div>
-            <Person
-              name={this.state.persons[0].name}
-              age={this.state.persons[0].age}
-              click={this.switchNameHandler.bind(this, 'Robert!')}
-              changed={this.nameChangeHandler} />
-            <Person
-              name={this.state.persons[1].name}
-              age={this.state.persons[1].age} >My Hobbies: Reading</Person>
-            <Person
-              name={this.state.persons[2].name}
-              age={this.state.persons[2].age} />
-          </div> : null
-        }
+
+        {persons}
       </div>
     );
   }
