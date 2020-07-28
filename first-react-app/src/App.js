@@ -1,10 +1,25 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 
-import Radium, { StyleRoot } from 'radium';
+// import Radium, { StyleRoot } from 'radium';
+import styled from 'styled-components';
 
 import './App.css';
 import Person from './Person/Person';
+
+const StyledButton = styled.button`
+  background-color: ${props => props.alt ? 'red' : 'green'};
+  color: white;
+  font: inherit;
+  border: 1px solid blue;
+  padding: 8px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${props => props.alt ? 'salmon' : 'lightgreen'};
+    color: black;
+  }
+`
 
 class App extends Component {
 
@@ -67,18 +82,19 @@ class App extends Component {
 
   render() {
 
-    const style = {
-      backgroundColor: 'white',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer',
-      // The following work with Radium
-      ':hover': {
-        backgroundColor: 'lightgreen',
-        color: 'black'
-      }
-    };
+    // * Radium approach
+    // const style = {
+    //   backgroundColor: 'white',
+    //   font: 'inherit',
+    //   border: '1px solid blue',
+    //   padding: '8px',
+    //   cursor: 'pointer',
+    //   // The following work with Radium
+    //   ':hover': {
+    //     backgroundColor: 'lightgreen',
+    //     color: 'black'
+    //   }
+    // };
 
     let persons = null;
     if (this.state.showPersons) {
@@ -105,11 +121,12 @@ class App extends Component {
             age={this.state.persons[2].age} /> */}
         </div>
       );
-      style.backgroundColor = 'red';
-      style[':hover'] = {
-        backgroundColor: 'salmon',
-        color: 'blue'
-      };
+      // * Radium approach
+      // style.backgroundColor = 'red';
+      // style[':hover'] = {
+      //   backgroundColor: 'salmon',
+      //   color: 'blue'
+      // };
     }
 
     // let classes = ['red', 'bold'].join(' ');
@@ -127,24 +144,38 @@ class App extends Component {
       // ? using MediaQueries with Radium
 
       // ! Important: We can only have one root element in JSX code.
-      <StyleRoot>
-        <div className="App">
-          <h1>Hi, I'm a React App</h1>
-          <p className={classes.join(' ')}>This is really working!!!</p>
-          {/* https://reactjs.org/docs/events.html#supported-events
-              If we want to sent parameters to the eventHandler, we
-              can do the following:
+      // * Radium approach
+      // <StyleRoot>
+      //   <div className="App">
+      //     <h1>Hi, I'm a React App</h1>
+      //     <p className={classes.join(' ')}>This is really working!!!</p>
+      //     {/* https://reactjs.org/docs/events.html#supported-events
+      //         If we want to sent parameters to the eventHandler, we
+      //         can do the following:
 
-              Approach 1: this.switchNameHandler.bind(this, 'parameter')
-              Approach 2: onClick={() => this.switchNameHandler('parameter')}
-          */}
-          <button
-            style={style}
-            onClick={this.togglePersonsHandler}>Toggle Persons</button>
+      //         Approach 1: this.switchNameHandler.bind(this, 'parameter')
+      //         Approach 2: onClick={() => this.switchNameHandler('parameter')}
+      //     */}
+      //     <button
+      //       style={style}
+      //       onClick={this.togglePersonsHandler}>Toggle Persons</button>
 
-          {persons}
-        </div>
-      </StyleRoot>
+      //     {persons}
+      //   </div>
+      // </StyleRoot>
+
+      <div className="App">
+        <h1>Hi, I'm a React App</h1>
+        <p className={classes.join(' ')}>This is really working!!!</p>
+        {/* <button
+          style={style}
+          onClick={this.togglePersonsHandler}>Toggle Persons</button> */}
+        <StyledButton
+          alt={this.state.showPersons}
+          onClick={this.togglePersonsHandler}>Toggle Persons
+        </StyledButton>
+        {persons}
+      </div>
     );
   }
 
@@ -159,4 +190,7 @@ class App extends Component {
 // ? RADIUM(App): This is called a higher order component, at the end it is jus
 // ? a component wrapping your component adding, kind of injection some extra
 // ? functionality.
-export default Radium(App);
+// export default Radium(App);
+
+// * Styled-Components approach
+export default App;
