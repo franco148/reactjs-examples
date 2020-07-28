@@ -3,7 +3,6 @@ import logo from './logo.svg';
 
 import './App.css';
 import Person from './Person/Person';
-import person from './Person/Person';
 
 class App extends Component {
 
@@ -26,6 +25,12 @@ class App extends Component {
         { name: 'Mireya', age: 19 }
       ]
     });
+  }
+
+  deletePersonHandler = (personIndex) => {
+    const persons = this.state.persons;
+    persons.splice(personIndex, 1);
+    this.setState({ persons: persons});
   }
 
   nameChangeHandler = (event) => {
@@ -58,7 +63,14 @@ class App extends Component {
     if (this.state.showPersons) {
       persons = (
         <div>
-          <Person
+          {this.state.persons.map(({name, age}, index) => {
+            return <Person
+                    key={index}
+                    name={name}
+                    age={age}
+                    click={() => this.deletePersonHandler(index)} />;
+          })}
+          {/* <Person
             name={this.state.persons[0].name}
             age={this.state.persons[0].age}
             click={this.switchNameHandler.bind(this, 'Robert!')}
@@ -68,7 +80,7 @@ class App extends Component {
             age={this.state.persons[1].age} >My Hobbies: Reading</Person>
           <Person
             name={this.state.persons[2].name}
-            age={this.state.persons[2].age} />
+            age={this.state.persons[2].age} /> */}
         </div>
       );
     }
