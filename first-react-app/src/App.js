@@ -28,7 +28,13 @@ class App extends Component {
   }
 
   deletePersonHandler = (personIndex) => {
-    const persons = this.state.persons;
+    // ! It is not a good practice this, because arrays are references
+    // const persons = this.state.persons;
+    // ! It would be better to have a copy of the array
+    // const persons = this.state.persons.slice();
+    // ! But in this case we will use ES6 feature
+    const persons = [...this.state.persons];
+
     persons.splice(personIndex, 1);
     this.setState({ persons: persons});
   }
