@@ -9,9 +9,9 @@ class App extends Component {
   // ? This only works in class based components
   state = {
     persons: [
-      { name: 'Franco', age: 30 },
-      { name: 'Fernando', age: 27 },
-      { name: 'Mireya', age: 20 }
+      { id: 'pid1', name: 'Franco', age: 30 },
+      { id: 'pid2', name: 'Fernando', age: 27 },
+      { id: 'pid3', name: 'Mireya', age: 20 }
     ]
   }
 
@@ -27,14 +27,40 @@ class App extends Component {
     });
   }
 
-  nameChangeHandler = (event) => {
-    this.setState({
-      persons: [
-        { name: 'TwoWay Binding', age: 30 },
-        { name: event.target.value, age: 27 },
-        { name: 'Mireya', age: 18 }
-      ]
+  deletePersonHandler = (personIndex) => {
+    // ! It is not a good practice this, because arrays are references
+    // const persons = this.state.persons;
+    // ! It would be better to have a copy of the array
+    // const persons = this.state.persons.slice();
+    // ! But in this case we will use ES6 feature
+    const persons = [...this.state.persons];
+
+    persons.splice(personIndex, 1);
+    this.setState({ persons: persons});
+  }
+
+  nameChangeHandler = (event, id) => {
+
+    const personIndex = this.state.persons.findIndex(p => {
+      return p.id === id;
     });
+
+    const person = {...this.state.persons[personIndex]};
+
+    // Ahother approach to the previous one would be.
+    // const person = Object.assign({}, this.state.persons[personIndex]);
+
+    person.name = event.target.value;
+
+    const persons = [...this.state.persons];
+    persons[personIndex] = person;
+
+    this.setState({ persons: persons });
+  }
+
+  togglePersonsHandler = () => {
+    const doesShow = this.state.showPersons;
+    this.setState({ showPersons: !doesShow });
   }
 
   render() {
@@ -46,6 +72,33 @@ class App extends Component {
       padding: '8px',
       cursor: 'pointer'
     };
+
+    let persons = null;
+    if (this.state.showPersons) {
+      persons = (
+        <div>
+          {this.state.persons.map(({id, name, age}, index) => {
+            return <Person
+                    key={id}
+                    name={name}
+                    age={age}
+                    click={() => this.deletePersonHandler(index)}
+                    changed={(event) => this.nameChangeHandler(event, id) } />;
+          })}
+          {/* <Person
+            name={this.state.persons[0].name}
+            age={this.state.persons[0].age}
+            click={this.switchNameHandler.bind(this, 'Robert!')}
+            changed={this.nameChangeHandler} />
+          <Person
+            name={this.state.persons[1].name}
+            age={this.state.persons[1].age} >My Hobbies: Reading</Person>
+          <Person
+            name={this.state.persons[2].name}
+            age={this.state.persons[2].age} /> */}
+        </div>
+      );
+    }
 
     return (
       // ! Important: We can only have one root element in JSX code.
@@ -60,18 +113,9 @@ class App extends Component {
         */}
         <button
           style={style}
-          onClick={this.switchNameHandler.bind(this, 'Franco Robert')}>Switch Name</button>
-        <Person
-          name={this.state.persons[0].name}
-          age={this.state.persons[0].age}
-          click={this.switchNameHandler.bind(this, 'Robert!')}
-          changed={this.nameChangeHandler} />
-        <Person
-          name={this.state.persons[1].name}
-          age={this.state.persons[1].age} >My Hobbies: Reading</Person>
-        <Person
-          name={this.state.persons[2].name}
-          age={this.state.persons[2].age} />
+          onClick={this.togglePersonsHandler}>Toggle Persons</button>
+
+        {persons}
       </div>
     );
   }
