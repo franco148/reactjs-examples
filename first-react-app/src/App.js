@@ -33,8 +33,14 @@ class App extends Component {
         { name: 'TwoWay Binding', age: 30 },
         { name: event.target.value, age: 27 },
         { name: 'Mireya', age: 18 }
-      ]
+      ],
+      showPersons: false
     });
+  }
+
+  togglePersonsHandler = () => {
+    const doesShow = this.state.showPersons;
+    this.setState({ showPersons: !doesShow });
   }
 
   render() {
@@ -60,18 +66,22 @@ class App extends Component {
         */}
         <button
           style={style}
-          onClick={this.switchNameHandler.bind(this, 'Franco Robert')}>Switch Name</button>
-        <Person
-          name={this.state.persons[0].name}
-          age={this.state.persons[0].age}
-          click={this.switchNameHandler.bind(this, 'Robert!')}
-          changed={this.nameChangeHandler} />
-        <Person
-          name={this.state.persons[1].name}
-          age={this.state.persons[1].age} >My Hobbies: Reading</Person>
-        <Person
-          name={this.state.persons[2].name}
-          age={this.state.persons[2].age} />
+          onClick={this.togglePersonsHandler}>Toggle Persons</button>
+        { this.state.showPersons ?
+          <div>
+            <Person
+              name={this.state.persons[0].name}
+              age={this.state.persons[0].age}
+              click={this.switchNameHandler.bind(this, 'Robert!')}
+              changed={this.nameChangeHandler} />
+            <Person
+              name={this.state.persons[1].name}
+              age={this.state.persons[1].age} >My Hobbies: Reading</Person>
+            <Person
+              name={this.state.persons[2].name}
+              age={this.state.persons[2].age} />
+          </div> : null
+        }
       </div>
     );
   }
