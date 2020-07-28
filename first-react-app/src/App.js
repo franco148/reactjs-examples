@@ -98,12 +98,24 @@ class App extends Component {
             age={this.state.persons[2].age} /> */}
         </div>
       );
+      style.backgroundColor = 'yellow';
+    }
+
+    // let classes = ['red', 'bold'].join(' ');
+    const classes = [];
+    if (this.state.persons.length <= 2) {
+      classes.push('red'); // ['red']
+    }
+
+    if (this.state.persons.length <= 1) {
+      classes.push('bold'); // ['red', 'bold']
     }
 
     return (
       // ! Important: We can only have one root element in JSX code.
       <div className="App">
         <h1>Hi, I'm a React App</h1>
+        <p className={classes.join(' ')}>This is really working!!!</p>
         {/* https://reactjs.org/docs/events.html#supported-events
             If we want to sent parameters to the eventHandler, we
             can do the following:
