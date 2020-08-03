@@ -25,7 +25,8 @@
   - DO: Cause Side-Effects
   - DONT: Update State (triggers re-render)
 
-
+#### Component Update Lifecycle (For State Changes)
+- shouldComponentUpdate
 
 
 
