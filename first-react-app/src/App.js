@@ -1,25 +1,25 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 
 // import Radium, { StyleRoot } from 'radium';
 import styled from 'styled-components';
 
 import './App.css';
 import Person from './Person/Person';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 
-// const StyledButton = styled.button`
-//   background-color: ${props => props.alt ? 'red' : 'green'};
-//   color: white;
-//   font: inherit;
-//   border: 1px solid blue;
-//   padding: 8px;
-//   cursor: pointer;
+const StyledButton = styled.button`
+  background-color: ${props => props.alt ? 'red' : 'green'};
+  color: white;
+  font: inherit;
+  border: 1px solid blue;
+  padding: 8px;
+  cursor: pointer;
 
-//   &:hover {
-//     background-color: ${props => props.alt ? 'salmon' : 'lightgreen'};
-//     color: black;
-//   }
-// `
+  &:hover {
+    background-color: ${props => props.alt ? 'salmon' : 'lightgreen'};
+    color: black;
+  }
+`
 
 class App extends Component {
 
@@ -45,11 +45,6 @@ class App extends Component {
   }
 
   deletePersonHandler = (personIndex) => {
-    // ! It is not a good practice this, because arrays are references
-    // const persons = this.state.persons;
-    // ! It would be better to have a copy of the array
-    // const persons = this.state.persons.slice();
-    // ! But in this case we will use ES6 feature
     const persons = [...this.state.persons];
 
     persons.splice(personIndex, 1);
@@ -63,9 +58,6 @@ class App extends Component {
     });
 
     const person = {...this.state.persons[personIndex]};
-
-    // Ahother approach to the previous one would be.
-    // const person = Object.assign({}, this.state.persons[personIndex]);
 
     person.name = event.target.value;
 
@@ -82,51 +74,24 @@ class App extends Component {
 
   render() {
 
-    // * Radium approach
-    // const style = {
-    //   backgroundColor: 'white',
-    //   font: 'inherit',
-    //   border: '1px solid blue',
-    //   padding: '8px',
-    //   cursor: 'pointer',
-    //   // The following work with Radium
-    //   ':hover': {
-    //     backgroundColor: 'lightgreen',
-    //     color: 'black'
-    //   }
-    // };
-
     let persons = null;
     if (this.state.showPersons) {
       persons = (
         <div>
           {this.state.persons.map(({id, name, age}, index) => {
-            return <Person
-                    key={id}
-                    name={name}
-                    age={age}
-                    click={() => this.deletePersonHandler(index)}
-                    changed={(event) => this.nameChangeHandler(event, id) } />;
+            // Key always has to be in the Boundary because this is now the
+            // outer element which we map
+            // Only use when it is really required.
+            return <ErrorBoundary key={id}>
+                    <Person
+                      name={name}
+                      age={age}
+                      click={() => this.deletePersonHandler(index)}
+                      changed={(event) => this.nameChangeHandler(event, id) } />
+                    </ErrorBoundary>;
           })}
-          {/* <Person
-            name={this.state.persons[0].name}
-            age={this.state.persons[0].age}
-            click={this.switchNameHandler.bind(this, 'Robert!')}
-            changed={this.nameChangeHandler} />
-          <Person
-            name={this.state.persons[1].name}
-            age={this.state.persons[1].age} >My Hobbies: Reading</Person>
-          <Person
-            name={this.state.persons[2].name}
-            age={this.state.persons[2].age} /> */}
         </div>
       );
-      // * Radium approach
-      // style.backgroundColor = 'red';
-      // style[':hover'] = {
-      //   backgroundColor: 'salmon',
-      //   color: 'blue'
-      // };
     }
 
     // let classes = ['red', 'bold'].join(' ');
@@ -140,43 +105,13 @@ class App extends Component {
     }
 
     return (
-      // ? We need to wrap our component with StyleRoot for avoiding an eror when
-      // ? using MediaQueries with Radium
-
-      // ! Important: We can only have one root element in JSX code.
-      // * Radium approach
-      // <StyleRoot>
-      //   <div className="App">
-      //     <h1>Hi, I'm a React App</h1>
-      //     <p className={classes.join(' ')}>This is really working!!!</p>
-      //     {/* https://reactjs.org/docs/events.html#supported-events
-      //         If we want to sent parameters to the eventHandler, we
-      //         can do the following:
-
-      //         Approach 1: this.switchNameHandler.bind(this, 'parameter')
-      //         Approach 2: onClick={() => this.switchNameHandler('parameter')}
-      //     */}
-      //     <button
-      //       style={style}
-      //       onClick={this.togglePersonsHandler}>Toggle Persons</button>
-
-      //     {persons}
-      //   </div>
-      // </StyleRoot>
-
       <div className="App">
         <h1>Hi, I'm a React App</h1>
         <p className={classes.join(' ')}>This is really working!!!</p>
-        {/* <button
-          style={style}
-          onClick={this.togglePersonsHandler}>Toggle Persons</button> */}
-        {/* <StyledButton
-          alt={this.state.showPersons}
+        <StyledButton
           onClick={this.togglePersonsHandler}>Toggle Persons
-        </StyledButton> */}
-        <button className="button"
-          onClick={this.togglePersonsHandler}>Toggle Persons
-        </button>
+        </StyledButton>
+
         {persons}
       </div>
     );
@@ -189,11 +124,6 @@ class App extends Component {
     // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Hi, I\'m a React App'));
   // }
 }
-
-// ? RADIUM(App): This is called a higher order component, at the end it is jus
-// ? a component wrapping your component adding, kind of injection some extra
-// ? functionality.
-// export default Radium(App);
 
 // * Styled-Components approach
 export default App;
