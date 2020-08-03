@@ -36,9 +36,12 @@ class App extends Component {
     return state;
   }
 
-  componentWillMount() {
-    console.log('[App.js] componentWillMount');
-  }
+  // componentWillMount() {
+  //   // It says unsafe!
+  //   // It can be used if you just want to set some initial state based on props,
+  //   // use the constructor!
+  //   console.log('[App.js] componentWillMount');
+  // }
 
   componentDidMount() {
     console.log('[App.js] componentDidMount');
