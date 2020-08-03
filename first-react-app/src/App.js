@@ -175,7 +175,6 @@ class App extends Component {
           onClick={this.togglePersonsHandler}>Toggle Persons
         </StyledButton> */}
         <button className="button"
-          alt={this.state.showPersons}
           onClick={this.togglePersonsHandler}>Toggle Persons
         </button>
         {persons}
