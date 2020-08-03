@@ -1,5 +1,6 @@
 import React from 'react';
 
+// import Radium from 'radium';
 import styled from 'styled-components';
 
 import './Person.css';
@@ -19,16 +20,32 @@ const StyledDiv = styled.div `
 
 // ES6 Approach - Functional Component
 const person = ({ name, age, children, click, changed }) => {
-  console.log('[Person.js] rendering...');
+
+  // * Radium approach
+  // const style = {
+  //   '@media (min-width: 500px)': {
+  //     width: '450px'
+  //   }
+  // };
+
+  // ! When using class-based components, props should be used as: this.props
   return (
+    // * Radium approach
+    // <div className="Person" style={style}>
+
     // * Styled-Components approach
     <StyledDiv>
       <p onClick={click}>I'm a {name} and I am {age} years old!</p>
+
+      {/* For accessing to the childre props, it has an special property called: children */}
       <p>{children}</p>
       <input type="text" onChange={changed} value={name} />
     </StyledDiv>
   );
 };
+
+// * Radium approach
+// export default Radium(person);
 
 // * Styled-Component approach
 export default person;

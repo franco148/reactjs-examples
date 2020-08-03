@@ -16,6 +16,35 @@ class App extends Component {
     ]
   }
 
+  constructor(props) {
+    super(props);
+    console.log(props);
+
+    // In constructor we can also initialize the State of the component.
+    // But at the end, previous approach follows this steps... (contructor steps)
+    // this.state = {
+    //   persons: [
+    //     { id: 'pid1', name: 'Franco', age: 30 },
+    //     { id: 'pid2', name: 'Fernando', age: 27 },
+    //     { id: 'pid3', name: 'Mireya', age: 20 }
+    //   ]
+    // };
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    console.log('[App.js] getDerivedStateFromProps', props);
+    return state;
+  }
+
+  componentWillMount() {
+    console.log('[App.js] componentWillMount');
+  }
+
+  componentDidMount() {
+    console.log('[App.js] componentDidMount');
+  }
+
+
   switchNameHandler = (newName) => {
     // console.log('Was clicked!');
     // this.state.persons[0].name = 'Franco Fral'; // this does not work
@@ -58,6 +87,7 @@ class App extends Component {
 
   render() {
 
+    console.log('[App.js] render');
     let persons = null;
     if (this.state.showPersons) {
       persons = (
