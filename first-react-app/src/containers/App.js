@@ -4,8 +4,8 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 import './App.css';
-import Person from './Person/Person';
-import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
+import Person from '../components/Persons/Person/Person';
+import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 
 const StyledButton = styled.button`
   background-color: ${props => props.alt ? 'red' : 'green'};
