@@ -1,4 +1,7 @@
-import React from 'react';
+// useEffect is the second most important React hook you can use next to useState. Because
+// useEffect basically combines the functionality or the use cases you can cover of all these
+// class-based lifecycle hooks in one React hook, here and both is called hook. (This is not a lifecycle)
+import React, { useEffect } from 'react';
 
 import styled from 'styled-components';
 
@@ -16,7 +19,12 @@ const StyledButton = styled.button`
   }
 `
 
-const cockpit = ({persons, togglePersonsHandler}) => {
+const Cockpit = ({persons, togglePersonsHandler}) => {
+
+  useEffect(() => {
+    // componentDidMount, componentDidUpdate combined in one effect?
+    console.log('[Cockpit.js] useEffect');
+  });
 
   const classes = [];
   if (persons.length <= 2) {
@@ -38,4 +46,4 @@ const cockpit = ({persons, togglePersonsHandler}) => {
   );
 };
 
-export default cockpit;
+export default Cockpit;
