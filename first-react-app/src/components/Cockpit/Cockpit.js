@@ -31,8 +31,16 @@ const Cockpit = ({persons, togglePersonsHandler}) => {
       // What about if we do not want this behavior?
       alert('Saved data to cloud!!!');
     }, 1000);
-  }, [persons]); // ! Popup will fire when persons change, NO in other cases.
+
+    // For a cleaning stuff, we may need to return a function.
+    // To be more precise, it runs BEFORE the main useEffect function runs, but AFTER
+    // the (first) render cycle!
+    return () => {
+      console.log('[Cockpit.js] cleanup work in useEffect.');
+    };
+  // }, [persons]); // ! Popup will fire when persons change, NO in other cases.
                   // ! We will need to pass an empty array if we need to execute it only the first time.
+  }, []);
 
   // We can have as many useEffect as we want.
   // useEffect();
