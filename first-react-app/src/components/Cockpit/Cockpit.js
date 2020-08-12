@@ -24,7 +24,18 @@ const Cockpit = ({persons, togglePersonsHandler}) => {
   useEffect(() => {
     // componentDidMount, componentDidUpdate combined in one effect?
     console.log('[Cockpit.js] useEffect');
-  });
+
+    setTimeout(() => {
+      // This shows that the popup is going to be called each time a component or parent
+      // component updates its state.
+      // What about if we do not want this behavior?
+      alert('Saved data to cloud!!!');
+    }, 1000);
+  }, [persons]); // ! Popup will fire when persons change, NO in other cases.
+                  // ! We will need to pass an empty array if we need to execute it only the first time.
+
+  // We can have as many useEffect as we want.
+  // useEffect();
 
   const classes = [];
   if (persons.length <= 2) {
