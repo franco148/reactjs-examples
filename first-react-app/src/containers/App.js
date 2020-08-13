@@ -1,25 +1,9 @@
 import React, { Component } from 'react';
 
-// import Radium, { StyleRoot } from 'radium';
-import styled from 'styled-components';
-
 import './App.css';
-import Person from './Person/Person';
-import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 
-const StyledButton = styled.button`
-  background-color: ${props => props.alt ? 'red' : 'green'};
-  color: white;
-  font: inherit;
-  border: 1px solid blue;
-  padding: 8px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: ${props => props.alt ? 'salmon' : 'lightgreen'};
-    color: black;
-  }
-`
 
 class App extends Component {
 
@@ -31,6 +15,38 @@ class App extends Component {
       { id: 'pid3', name: 'Mireya', age: 20 }
     ]
   }
+
+  constructor(props) {
+    super(props);
+    console.log(props);
+
+    // In constructor we can also initialize the State of the component.
+    // But at the end, previous approach follows this steps... (contructor steps)
+    // this.state = {
+    //   persons: [
+    //     { id: 'pid1', name: 'Franco', age: 30 },
+    //     { id: 'pid2', name: 'Fernando', age: 27 },
+    //     { id: 'pid3', name: 'Mireya', age: 20 }
+    //   ]
+    // };
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    console.log('[App.js] getDerivedStateFromProps', props);
+    return state;
+  }
+
+  // componentWillMount() {
+  //   // It says unsafe!
+  //   // It can be used if you just want to set some initial state based on props,
+  //   // use the constructor!
+  //   console.log('[App.js] componentWillMount');
+  // }
+
+  componentDidMount() {
+    console.log('[App.js] componentDidMount');
+  }
+
 
   switchNameHandler = (newName) => {
     // console.log('Was clicked!');
@@ -74,43 +90,24 @@ class App extends Component {
 
   render() {
 
+    console.log('[App.js] render');
     let persons = null;
     if (this.state.showPersons) {
       persons = (
-        <div>
-          {this.state.persons.map(({id, name, age}, index) => {
-            // Key always has to be in the Boundary because this is now the
-            // outer element which we map
-            // Only use when it is really required.
-            return <ErrorBoundary key={id}>
-                    <Person
-                      name={name}
-                      age={age}
-                      click={() => this.deletePersonHandler(index)}
-                      changed={(event) => this.nameChangeHandler(event, id) } />
-                    </ErrorBoundary>;
-          })}
-        </div>
+        <Persons
+          persons={this.state.persons}
+          clicked={this.deletePersonHandler}
+          changed={this.nameChangeHandler} />
       );
     }
 
-    // let classes = ['red', 'bold'].join(' ');
-    const classes = [];
-    if (this.state.persons.length <= 2) {
-      classes.push('red'); // ['red']
-    }
 
-    if (this.state.persons.length <= 1) {
-      classes.push('bold'); // ['red', 'bold']
-    }
 
     return (
       <div className="App">
-        <h1>Hi, I'm a React App</h1>
-        <p className={classes.join(' ')}>This is really working!!!</p>
-        <StyledButton
-          onClick={this.togglePersonsHandler}>Toggle Persons
-        </StyledButton>
+        <Cockpit
+          persons={this.state.persons}
+          togglePersonsHandler={this.togglePersonsHandler} />
 
         {persons}
       </div>

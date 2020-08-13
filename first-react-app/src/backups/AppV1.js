@@ -5,7 +5,7 @@ import logo from './logo.svg';
 import styled from 'styled-components';
 
 import './App.css';
-import Person from './Person/Person';
+import Person from '../Person/Person';
 
 // const StyledButton = styled.button`
 //   background-color: ${props => props.alt ? 'red' : 'green'};
