@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import styles from './ingredient.module.css';
+import styles from './Ingredient.module.css';
 
 // ? PropTypes can work either in class based and funtional components, but it
 // ? may be considered as best practice to use it in class based components.
@@ -23,6 +23,7 @@ class Ingredient extends Component {
             <div className={styles.Seeds2}></div>
           </div>
         );
+        break;
       case ('meat'):
         ingredient = <div className={styles.Meat}></div>;
         break;
@@ -39,6 +40,7 @@ class Ingredient extends Component {
         ingredient = null;
     }
 
+    // console.log('Ingredient: ', ingredient);
     return ingredient;
   }
 }
