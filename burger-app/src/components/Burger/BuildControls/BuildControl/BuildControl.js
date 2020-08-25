@@ -9,3 +9,5 @@ const buildControl = (props) => (
     <button className={styles.More}>More</button>
   </div>
 );
+
+export default buildControl;
