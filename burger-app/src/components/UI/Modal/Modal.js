@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import styles from './Modal.module.css';
-import Aux from '../../../hoc/Aux';
+import Aux from '../../../hoc/Aux/Aux';
 import Backdrop from '../Backdrop/Backdrop';
 
 // We are converting this to a Class Based component in order to
