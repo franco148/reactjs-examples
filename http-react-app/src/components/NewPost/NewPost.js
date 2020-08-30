@@ -16,7 +16,8 @@ class NewPost extends Component {
       body: this.state.content,
       author: this.state.author
     };
-    http.post('http://jsonplaceholder.typicode.com/posts', post)
+    // http.post('http://jsonplaceholder.typicode.com/posts', post)
+    http.post('/posts', post)
       .then(response => {
         console.log(response);
       });

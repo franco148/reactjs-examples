@@ -6,6 +6,12 @@ import * as serviceWorker from './serviceWorker';
 
 import axios from 'axios';
 
+// CONFIGURATION
+axios.defaults.baseURL = 'http://jsonplaceholder.typicode.com';
+axios.defaults.headers.common['Authorization'] = 'AUTH TOKEN';
+axios.defaults.headers.post['Content-Type'] = 'application/json';
+
+// INTERCEPTOS
 axios.interceptors.request.use(request => {
   console.log(request);
 
@@ -24,6 +30,10 @@ axios.interceptors.response.use(response => {
   console.log('RESPONSE ERROR!', error);
   return Promise.reject(error);
 });
+
+//? https://github.com/axios/axios#interceptors
+// var myInterceptor = axios.interceptors.request.use(function () {/*...*/});
+// axios.interceptors.request.eject(myInterceptor);
 
 ReactDOM.render(
   <React.StrictMode>
