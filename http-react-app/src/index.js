@@ -4,6 +4,27 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+import axios from 'axios';
+
+axios.interceptors.request.use(request => {
+  console.log(request);
+
+  // ! Once adde some logic to the interceptor, we will need to return the
+  // ! request!!! Otherwise the request is being blocked.
+  return request;
+}, error => {
+  console.log('REQUEST ERROR!', error);
+  return Promise.reject(error);
+});
+
+axios.interceptors.response.use(response => {
+  console.log(response);
+  return response;
+}, error => {
+  console.log('RESPONSE ERROR!', error);
+  return Promise.reject(error);
+});
+
 ReactDOM.render(
   <React.StrictMode>
     <App />
