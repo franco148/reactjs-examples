@@ -11,7 +11,11 @@ class Modal extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     // With this we are avoiding to re-render or update the ORDER SUMMARY
     // unnecesary.
-    return nextProps.show !== this.props.show;
+    // return nextProps.show !== this.props.show;
+
+    // * Modal implementation fix
+    return nextProps.show !== this.props.show ||
+          nextProps.children !== this.props.children;
   }
 
   componentDidUpdate() {
