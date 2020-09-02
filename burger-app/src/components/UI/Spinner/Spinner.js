@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styles from './Spinner.module.css';
-console.log(styles);
+
 // ? https://projects.lukehaas.me/css-loaders/
 const spinner = () => (
   <div className={styles.Loader}>Loading...</div>
