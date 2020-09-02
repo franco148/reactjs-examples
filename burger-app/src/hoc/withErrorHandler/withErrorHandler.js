@@ -25,15 +25,22 @@ const withErrorHandler = (WrappedComponent, axios) => {
     //   });
     // }
     componentWillMount() {
-      axios.interceptors.request.use(req => {
+      this.reqInterceptor = axios.interceptors.request.use(req => {
         console.log('REQUEST OCCURRED');
         this.setState({ error: null });
         return req;
       });
-      axios.interceptors.response.use(res => res, error => {
+      this.resInterceptor = axios.interceptors.response.use(res => res, error => {
         console.log('An error occurred: ', error);
         this.setState({ error });
       });
+    }
+
+    // componentWillMount is registering interceptos, which can cause memory leaks.
+    // So we need to fix it with the following.
+    componentWillUnmount() {
+      axios.interceptors.request.eject(this.reqInterceptor);
+      axios.interceptors.response.eject(this.resInterceptor);
     }
 
     errorConfirmedHandler = () => {
