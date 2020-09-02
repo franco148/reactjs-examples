@@ -10,7 +10,21 @@ const withErrorHandler = (WrappedComponent, axios) => {
       error: null
     }
 
-    componentDidMount() {
+    // This is not handle when GET operations occurs, because the order
+    // of the lifecycle hooks, for that we need to use componentWillMount,
+    // sinde this will be deprecated, we can also use constructor.
+    // componentDidMount() {
+    //   axios.interceptors.request.use(req => {
+    //     console.log('REQUEST OCCURRED');
+    //     this.setState({ error: null });
+    //     return req;
+    //   });
+    //   axios.interceptors.response.use(res => res, error => {
+    //     console.log('An error occurred: ', error);
+    //     this.setState({ error });
+    //   });
+    // }
+    componentWillMount() {
       axios.interceptors.request.use(req => {
         console.log('REQUEST OCCURRED');
         this.setState({ error: null });
