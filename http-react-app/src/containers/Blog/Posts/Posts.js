@@ -21,7 +21,7 @@ class Posts extends Component {
                 author: 'Franco'
               }
             });
-            console.log(updatedPosts);
+            // console.log(updatedPosts);
             this.setState({posts: updatedPosts});
           })
           .catch(error => {
@@ -41,6 +41,7 @@ class Posts extends Component {
           key={post.id} 
           title={post.title} 
           author={post.author}
+          // {...this.props} // We could send the props as a parameter.
           clicked={() => this.postSelectedHandler(post.id)} />;
       });
     }
