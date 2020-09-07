@@ -9,7 +9,7 @@ class Posts extends Component {
 
   state = {
     posts: [],
-    selectedPostId: undefined,
+    // selectedPostId: undefined,
   }
 
   componentDidMount() {
@@ -31,7 +31,9 @@ class Posts extends Component {
   }
 
   postSelectedHandler = (id) => {
-    this.setState({ selectedPostId: id });
+    // this.setState({ selectedPostId: id });
+    //? We can use history object inside props, which has many functionalities.
+    this.props.history.push({pathname: '/' + id});
   }
 
   render() {
@@ -39,14 +41,21 @@ class Posts extends Component {
     if (!this.state.error) {
       posts = this.state.posts.map(post => {
         return (
-          <Link to={'/' + post.id} key={post.id} >
-            <Post 
-              // key={post.id} 
-              title={post.title} 
-              author={post.author}
-              // {...this.props} // We could send the props as a parameter.
-              clicked={() => this.postSelectedHandler(post.id)} />
-        </Link>
+          // <Link to={'/' + post.id} key={post.id} >
+          //   <Post 
+          //     // key={post.id} 
+          //     title={post.title} 
+          //     author={post.author}
+          //     // {...this.props} // We could send the props as a parameter.
+          //     clicked={() => this.postSelectedHandler(post.id)} />
+          // </Link>
+
+          //? Second Approach: Navigating Programmatically
+          <Post 
+            key={post.id} 
+            title={post.title} 
+            author={post.author}
+            clicked={() => this.postSelectedHandler(post.id)} />
         );
       });
     }
