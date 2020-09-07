@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, NavLink } from 'react-router-dom';
 
 import './Blog.css';
 import Posts from './Posts/Posts';
@@ -13,13 +13,22 @@ class Blog extends Component {
         <header>
           <nav>
             <ul>
-              <li><Link to="/">Home</Link></li>
-              <li><Link to={{
+              {/* We can reference to a different css clas to, like
+              activeClassName="my-active" 
+              
+              Other approach:
+              activeStyle={{
+                color: '#fa923f',
+                textDecoration: 'underline'
+              }}
+              */}
+              <li><NavLink to="/" exact>Home</NavLink></li>
+              <li><NavLink to={{
                 pathname: '/new-post', // Second example below should be the same.
                 // pathname: this.props.match.url + '/new-post',
                 hash: '#submit',
                 search: '?quick-submit=true'
-              }}>New Post</Link></li>
+              }}>New Post</NavLink></li>
             </ul>
           </nav>
         </header>
