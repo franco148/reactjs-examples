@@ -40,7 +40,7 @@ class Blog extends Component {
         <Route path="/" render={()=> <h1>Greetings</h1>} /> */}
         <Switch>
           <Route path="/new-post" component={NewPost} />
-          <Route path="/" component={Posts} />
+          <Route path="/posts" component={Posts} />
           {/* Chaging this route to other page, since we may need to have a nested route
           <Route path="/:id" exact component={FullPost} /> */}
         </Switch>
