@@ -60,8 +60,6 @@ class Posts extends Component {
         );
       });
     }
-    
-    console.log('AAAAAAAAAAAA', this.props.match.url);
 
     return (
       <div>
