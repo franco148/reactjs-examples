@@ -26,7 +26,7 @@ class Blog extends Component {
                 textDecoration: 'underline'
               }}
               */}
-              <li><NavLink to="/" exact>Home</NavLink></li>
+              <li><NavLink to="/posts/" exact>Posts</NavLink></li>
               <li><NavLink to={{
                 pathname: '/new-post', // Second example below should be the same.
                 // pathname: this.props.match.url + '/new-post',
@@ -39,9 +39,10 @@ class Blog extends Component {
         {/* <Route path="/" exact render={()=> <h1>Home</h1>} />
         <Route path="/" render={()=> <h1>Greetings</h1>} /> */}
         <Switch>
-          <Route path="/" exact component={Posts} />
           <Route path="/new-post" component={NewPost} />
-          <Route path="/:id" exact component={FullPost} />
+          <Route path="/" component={Posts} />
+          {/* Chaging this route to other page, since we may need to have a nested route
+          <Route path="/:id" exact component={FullPost} /> */}
         </Switch>
       </div>
     );
