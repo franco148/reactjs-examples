@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Link, NavLink, Switch } from 'react-router-dom';
+import { Route, Link, NavLink, Switch, Redirect } from 'react-router-dom';
 
 // Switch helps us avoid the issue regarding to routing when two or more 
 // have similar paths.
@@ -43,6 +43,12 @@ class Blog extends Component {
           <Route path="/posts" component={Posts} />
           {/* Chaging this route to other page, since we may need to have a nested route
           <Route path="/:id" exact component={FullPost} /> */}
+
+          {/* What about if we want to redirect to posts when specified the root path: /
+          This would be one option. 
+          However, there is another special component for that. REDIRECT.
+          <Route path="/posts" component={Posts} /> */}
+          <Redirect from="/" to="/posts" />
         </Switch>
       </div>
     );
