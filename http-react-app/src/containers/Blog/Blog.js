@@ -53,7 +53,10 @@ class Blog extends Component {
           This would be one option. 
           However, there is another special component for that. REDIRECT.
           <Route path="/posts" component={Posts} /> */}
-          <Redirect from="/" to="/posts" />
+          {/* <Redirect from="/" to="/posts" /> */}
+
+          {/* Unknown routes approach */}
+          <Route render={() => <h1>Not found</h1>} />
         </Switch>
       </div>
     );
