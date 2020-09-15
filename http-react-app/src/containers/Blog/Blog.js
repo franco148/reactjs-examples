@@ -12,7 +12,7 @@ import FullPost from './FullPost/FullPost';
 class Blog extends Component {
 
   state = {
-    auth: false
+    auth: true
   };
 
   render () {
