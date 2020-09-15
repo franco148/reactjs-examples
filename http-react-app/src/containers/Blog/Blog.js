@@ -5,9 +5,13 @@ import { Route, Link, NavLink, Switch, Redirect } from 'react-router-dom';
 // have similar paths.
 
 import './Blog.css';
+import asyncComponent from '../../hoc/asyncComponent';
 import Posts from './Posts/Posts';
-import NewPost from './NewPost/NewPost';
-import FullPost from './FullPost/FullPost';
+// import NewPost from './NewPost/NewPost';
+const AsyncNewPost = asyncComponent(() => {
+  return import('./NewPost/NewPost');
+});
+
 
 class Blog extends Component {
 
@@ -44,7 +48,8 @@ class Blog extends Component {
         <Route path="/" render={()=> <h1>Greetings</h1>} /> */}
         <Switch>
           {/* Approach #1 that works like a GUARD in angular */}
-          { this.state.auth ? <Route path="/new-post" component={NewPost} /> : null }
+          {/* { this.state.auth ? <Route path="/new-post" component={NewPost} /> : null } */}
+          { this.state.auth ? <Route path="/new-post" component={AsyncNewPost} /> : null }
           <Route path="/posts" component={Posts} />
           {/* Chaging this route to other page, since we may need to have a nested route
           <Route path="/:id" exact component={FullPost} /> */}
