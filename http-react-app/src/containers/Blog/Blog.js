@@ -11,6 +11,10 @@ import FullPost from './FullPost/FullPost';
 
 class Blog extends Component {
 
+  state = {
+    auth: false
+  };
+
   render () {
     return (
       <div className="Blog">
@@ -39,7 +43,8 @@ class Blog extends Component {
         {/* <Route path="/" exact render={()=> <h1>Home</h1>} />
         <Route path="/" render={()=> <h1>Greetings</h1>} /> */}
         <Switch>
-          <Route path="/new-post" component={NewPost} />
+          {/* Approach #1 that works like a GUARD in angular */}
+          { this.state.auth ? <Route path="/new-post" component={NewPost} /> : null }
           <Route path="/posts" component={Posts} />
           {/* Chaging this route to other page, since we may need to have a nested route
           <Route path="/:id" exact component={FullPost} /> */}

@@ -12,6 +12,13 @@ class NewPost extends Component {
     submitted: false
   }
 
+  componentDidMount() {
+    {/* Approach #2 that works like a GUARD in angular 
+
+      if unauth => this.props.history.replace('/posts');
+    */}
+  }
+
   postDataHandler = () => {
     const post = {
       title: this.state.title,
