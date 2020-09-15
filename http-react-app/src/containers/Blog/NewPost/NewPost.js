@@ -23,6 +23,11 @@ class NewPost extends Component {
       .then(response => {
         console.log(response);
         this.setState({submitted: true});
+
+        // Onother approach to this CONDITIONAL REDIRECTION approach, would be using
+        // HISTORY like following:
+        // * this.props.history.push('/posts');
+        // * this.props.history.replace('/posts');
       });
   }
 
