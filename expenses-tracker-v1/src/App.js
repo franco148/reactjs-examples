@@ -1,4 +1,4 @@
-import Expenses from "./components/Expenses";
+import Expenses from "./components/Expenses/Expenses";
 
 function App() {
   const expenses = [
@@ -34,6 +34,10 @@ function App() {
     },
     { id: "e6", title: "Ic Norte", amount: 200.2, date: new Date(2023, 1, 12) },
   ];
+
+  // import React from 'react';
+  // return React.createElement('element', attributes, apenning and closing tags);
+  // return React.createElement('div', {}, React.createElement('h2', {}, 'Lets get started'), React.createElement(Expenses, {items: expenses}));
 
   return (
     <div>
