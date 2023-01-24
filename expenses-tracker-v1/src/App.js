@@ -1,3 +1,4 @@
+import NewExpense from "./components/NewExpense/NewExpense";
 import Expenses from "./components/Expenses/Expenses";
 
 const App = () => {
@@ -35,12 +36,17 @@ const App = () => {
     { id: "e6", title: "Ic Norte", amount: 200.2, date: new Date(2023, 1, 12) },
   ];
 
+  const addExpenseHandler = (expense) => {
+    console.log("In App.js", expense);
+  };
+
   // import React from 'react';
   // return React.createElement('element', attributes, apenning and closing tags);
   // return React.createElement('div', {}, React.createElement('h2', {}, 'Lets get started'), React.createElement(Expenses, {items: expenses}));
 
   return (
     <div>
+      <NewExpense onAddExpense={addExpenseHandler} />
       <Expenses expenses={expenses} />
     </div>
   );
