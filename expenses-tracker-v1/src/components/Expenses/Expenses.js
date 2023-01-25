@@ -23,22 +23,42 @@ function Expenses(props) {
     // });
   };
 
+  let expensesContent = <p>No expenses found.</p>;
+  if (filteredExpenses.length > 0) {
+    expensesContent = filteredExpenses.map((expense) => {
+      return (
+        <ExpenseItem
+          key={expense.id}
+          title={expense.title}
+          amount={expense.amount}
+          date={expense.date}
+        />
+      );
+    });
+  }
+
   return (
     <Card className="expenses">
       <ExpenseFilter
         selected={filteredYear}
         onFilterSelect={filterChangeHandler}
       />
-      {filteredExpenses.map((expense) => {
-        return (
-          <ExpenseItem
-            key={expense.id}
-            title={expense.title}
-            amount={expense.amount}
-            date={expense.date}
-          />
-        );
-      })}
+      {
+        // here we can have a ternary expresion in order to show information when there is no expenses for
+        // a selected year
+        // filteredExpenses.map((expense) => {
+        //   return (
+        //     <ExpenseItem
+        //       key={expense.id}
+        //       title={expense.title}
+        //       amount={expense.amount}
+        //       date={expense.date}
+        //     />
+        //   );
+        // })
+
+        expensesContent
+      }
     </Card>
   );
 }
