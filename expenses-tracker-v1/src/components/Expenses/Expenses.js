@@ -8,10 +8,19 @@ import "./Expenses.css";
 
 function Expenses(props) {
   const [filteredYear, setFilteredYear] = useState("2021");
+  // const [filteredExpenses, setFilteredExpenses] = useState(props.expenses);
+
+  const filteredExpenses = props.expenses.filter(
+    (expense) => expense.date.getFullYear().toString() === filteredYear
+  );
 
   const filterChangeHandler = (value) => {
-    console.log("In Expenses.js", value);
     setFilteredYear(value);
+    // setFilteredExpenses(() => {
+    //   return props.expenses.filter(
+    //     (expense) => expense.date.getFullYear() == value
+    //   );
+    // });
   };
 
   return (
@@ -20,9 +29,10 @@ function Expenses(props) {
         selected={filteredYear}
         onFilterSelect={filterChangeHandler}
       />
-      {props.expenses.map((expense) => {
+      {filteredExpenses.map((expense) => {
         return (
           <ExpenseItem
+            key={expense.id}
             title={expense.title}
             amount={expense.amount}
             date={expense.date}

@@ -20,13 +20,13 @@ const DUMMY_EXPENSES = [
     id: "e3",
     title: "Farmacorp",
     amount: 164.0,
-    date: new Date(2022, 12, 31),
+    date: new Date(2022, 11, 31),
   },
   {
     id: "e4",
     title: "Baby Corp",
     amount: 850.5,
-    date: new Date(2022, 12, 21),
+    date: new Date(2022, 11, 21),
   },
   {
     id: "e5",
