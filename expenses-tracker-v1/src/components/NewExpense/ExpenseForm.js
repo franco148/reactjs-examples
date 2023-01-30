@@ -1,4 +1,5 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 import "./ExpenseForm.css";
 
@@ -11,7 +12,23 @@ const ExpenseForm = (props) => {
     enteredTitle: "",
     enteredAmount: "",
     enteredDate: "",
+    selectedCategory: "",
   });
+
+  const [categories, setCategories] = useState([]);
+
+  const fetchCategories = () => {
+    axios.get("http://localhost:8080/etracker/categories").then((response) => {
+      if (response && response.data) {
+        setCategories(() => response.data);
+        setUserInput((prevState) => {
+          return { ...prevState, selectedCategory: response.data[0].id };
+        });
+      }
+    });
+  };
+
+  useEffect(fetchCategories, []);
 
   const titleChangeHandler = (event) => {
     // console.log("Title changed!" + event.target.value);
@@ -53,12 +70,19 @@ const ExpenseForm = (props) => {
     });
   };
 
+  const categoryChangeHandler = (event) => {
+    setUserInput((prevState) => {
+      return { ...prevState, selectedCategory: event.target.value };
+    });
+  };
+
   const submitHandler = (event) => {
     event.preventDefault();
     const expenseData = {
       title: userInput.enteredTitle,
       amount: +userInput.enteredAmount,
       date: new Date(userInput.enteredDate),
+      category: +userInput.selectedCategory,
     };
 
     // console.log("submitted!", expenseData);
@@ -70,6 +94,7 @@ const ExpenseForm = (props) => {
         enteredTitle: "",
         enteredAmount: "",
         enteredDate: "",
+        selectedCategory: "",
       };
     });
   };
@@ -104,6 +129,19 @@ const ExpenseForm = (props) => {
             value={userInput.enteredDate}
             onChange={dateChangeHandler}
           />
+        </div>
+        <div className="new-expense__control">
+          <label>Category</label>
+          <select
+            value={userInput.selectedCategory}
+            onChange={categoryChangeHandler}
+          >
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
       <div className="new-expense__actions">

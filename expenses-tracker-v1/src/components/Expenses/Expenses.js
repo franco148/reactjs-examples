@@ -8,12 +8,15 @@ import "./Expenses.css";
 import ExpensesChart from "./ExpensesChart";
 
 function Expenses(props) {
-  const [filteredYear, setFilteredYear] = useState("2021");
+  const [filteredYear, setFilteredYear] = useState(
+    new Date().getFullYear().toString()
+  );
   // const [filteredExpenses, setFilteredExpenses] = useState(props.expenses);
 
-  const filteredExpenses = props.expenses.filter(
-    (expense) => expense.date.getFullYear().toString() === filteredYear
-  );
+  const filteredExpenses = props.expenses.filter((expense) => {
+    console.log(filteredYear);
+    return expense.date.getFullYear().toString() === filteredYear;
+  });
 
   const filterChangeHandler = (value) => {
     setFilteredYear(value);

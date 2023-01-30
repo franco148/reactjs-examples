@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import NewExpense from "./components/NewExpense/NewExpense";
 import Expenses from "./components/Expenses/Expenses";
+import axios from "axios";
 
 const DUMMY_EXPENSES = [
   {
@@ -10,31 +11,15 @@ const DUMMY_EXPENSES = [
     amount: 294.67,
     date: new Date(2023, 1, 20),
   },
-  {
-    id: "e2",
-    title: "Hypermaxi",
-    amount: 320.0,
-    date: new Date(2023, 1, 14),
-  },
-  {
-    id: "e3",
-    title: "Farmacorp",
-    amount: 164.0,
-    date: new Date(2022, 11, 31),
-  },
-  {
-    id: "e4",
-    title: "Baby Corp",
-    amount: 850.5,
-    date: new Date(2022, 11, 21),
-  },
-  {
-    id: "e5",
-    title: "Farma Elias",
-    amount: 60.7,
-    date: new Date(2023, 1, 5),
-  },
+  { id: "e2", title: "Hypermaxi", amount: 320.0, date: new Date(2023, 1, 14) },
+  { id: "e3", title: "Farmacorp", amount: 164.0, date: new Date(2022, 11, 31) },
+  { id: "e4", title: "Baby Corp", amount: 850.5, date: new Date(2022, 11, 21) },
+  { id: "e5", title: "Farma Elias", amount: 60.7, date: new Date(2023, 1, 5) },
   { id: "e6", title: "Ic Norte", amount: 200.2, date: new Date(2023, 1, 12) },
+  { id: "e7", title: "Ic Norte", amount: 200.2, date: new Date(2023, 6, 5) },
+  { id: "e8", title: "Ic Norte", amount: 200.2, date: new Date(2023, 8, 11) },
+  { id: "e9", title: "Ic Norte", amount: 200.2, date: new Date(2022, 8, 10) },
+  { id: "e10", title: "Ic Norte", amount: 200.2, date: new Date(2022, 5, 20) },
 ];
 
 const App = () => {
@@ -50,6 +35,14 @@ const App = () => {
   // import React from 'react';
   // return React.createElement('element', attributes, apenning and closing tags);
   // return React.createElement('div', {}, React.createElement('h2', {}, 'Lets get started'), React.createElement(Expenses, {items: expenses}));
+
+  const fetchRegisteredYears = () => {
+    axios
+      .get("http://localhost:8080/etracker/expenses/years")
+      .then((response) => console.log(response));
+  };
+
+  useEffect(fetchRegisteredYears);
 
   return (
     <div>
