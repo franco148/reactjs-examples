@@ -15,20 +15,21 @@ const ExpenseForm = (props) => {
     selectedCategory: "",
   });
 
-  const [categories, setCategories] = useState([]);
+  // const [categories, setCategories] = useState([]);
 
-  const fetchCategories = () => {
-    axios.get("http://localhost:8080/etracker/categories").then((response) => {
-      if (response && response.data) {
-        setCategories(() => response.data);
-        setUserInput((prevState) => {
-          return { ...prevState, selectedCategory: response.data[0].id };
-        });
-      }
-    });
-  };
+  // const fetchCategories = () => {
+  //   axios.get("http://localhost:8080/etracker/categories").then((response) => {
+  //     if (response && response.data) {
+  //       console.log(response.data);
+  //       setCategories(() => response.data);
+  //       setUserInput((prevState) => {
+  //         return { ...prevState, selectedCategory: response.data[0].id };
+  //       });
+  //     }
+  //   });
+  // };
 
-  useEffect(fetchCategories, []);
+  // useEffect(fetchCategories, []);
 
   const titleChangeHandler = (event) => {
     // console.log("Title changed!" + event.target.value);
@@ -136,7 +137,7 @@ const ExpenseForm = (props) => {
             value={userInput.selectedCategory}
             onChange={categoryChangeHandler}
           >
-            {categories.map((category) => (
+            {props.categories.map((category) => (
               <option key={category.id} value={category.id}>
                 {category.name}
               </option>

@@ -24,6 +24,8 @@ const DUMMY_EXPENSES = [
 
 const App = () => {
   const [expenses, setExpenses] = useState(DUMMY_EXPENSES);
+  const [rangeOfYears, setRangeOfYears] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   const addExpenseHandler = (expense) => {
     // console.log("In App.js", expense);
@@ -36,18 +38,42 @@ const App = () => {
   // return React.createElement('element', attributes, apenning and closing tags);
   // return React.createElement('div', {}, React.createElement('h2', {}, 'Lets get started'), React.createElement(Expenses, {items: expenses}));
 
-  const fetchRegisteredYears = () => {
+  // const fetchRegisteredYears = () => {
+  //   axios
+  //     .get("http://localhost:8080/etracker/expenses/years")
+  //     .then((response) => console.log(response));
+  // };
+
+  // useEffect(fetchRegisteredYears);
+
+  const fetchInitialExprenseTrackerData = () => {
     axios
       .get("http://localhost:8080/etracker/expenses/years")
-      .then((response) => console.log(response));
+      .then((response) => {
+        console.log("years range: ", response.data);
+        setRangeOfYears((prevState) => {
+          // return [...prevState, ...yearsList];
+          return [...response.data];
+        });
+      });
+
+    axios.get("http://localhost:8080/etracker/categories").then((response) => {
+      if (response && response.data) {
+        console.log(response.data);
+        setCategories(() => response.data);
+        // setUserInput((prevState) => {
+        //   return { ...prevState, selectedCategory: response.data[0].id };
+        // });
+      }
+    });
   };
 
-  useEffect(fetchRegisteredYears);
+  useEffect(fetchInitialExprenseTrackerData, []);
 
   return (
     <div>
-      <NewExpense onAddExpense={addExpenseHandler} />
-      <Expenses expenses={expenses} />
+      <NewExpense onAddExpense={addExpenseHandler} categories={categories} />
+      <Expenses expenses={expenses} expenseYears={rangeOfYears} />
     </div>
   );
 };

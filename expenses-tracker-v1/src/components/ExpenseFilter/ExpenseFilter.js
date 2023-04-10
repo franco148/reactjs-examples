@@ -1,10 +1,29 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import "./ExpenseFilter.css";
 
+// const DEFAULT_RANGE_OF_YEARS = [];
+
 const ExpenseFilter = (props) => {
+  // const [rangeOfYears, setRangeOfYears] = useState([props.selected]);
+
   const filterChangeHandler = (event) => {
     // console.log(event.target.value);
     props.onFilterSelect(event.target.value);
   };
+
+  // const fetchRegisteredYears = () => {
+  //   axios
+  //     .get("http://localhost:8080/etracker/expenses/years")
+  //     .then((yearsList) => {
+  //       console.log("years range: ", yearsList);
+  //       setRangeOfYears((prevState) => {
+  //         return [...prevState, ...yearsList];
+  //       });
+  //     });
+  // };
+
+  // useEffect(fetchRegisteredYears, []);
 
   return (
     <div className="expenses-filter">
