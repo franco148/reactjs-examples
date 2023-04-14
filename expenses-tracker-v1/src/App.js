@@ -50,7 +50,14 @@ const App = () => {
     axios
       .get("http://localhost:8080/etracker/expenses/years")
       .then((response) => {
+        const lastExpensesYear = Math.max(response.data);
+        const currentYear = new Date().getFullYear();
+
+        for (let year = lastExpensesYear; year < currentYear; year++) {
+          response.data.push(lastExpensesYear + 1);
+        }
         console.log("years range: ", response.data);
+
         setRangeOfYears((prevState) => {
           // return [...prevState, ...yearsList];
           return [...response.data];
