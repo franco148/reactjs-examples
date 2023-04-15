@@ -50,17 +50,19 @@ const App = () => {
     axios
       .get("http://localhost:8080/etracker/expenses/years")
       .then((response) => {
-        const lastExpensesYear = Math.max(response.data);
+        const firstExpenseYear = Math.min(...response.data);
         const currentYear = new Date().getFullYear();
+        const expenseYearsArray = [];
+        expenseYearsArray.push(firstExpenseYear);
 
-        for (let year = lastExpensesYear; year < currentYear; year++) {
-          response.data.push(lastExpensesYear + 1);
+        for (let year = firstExpenseYear; year < currentYear; year++) {
+          expenseYearsArray.push(year + 1);
         }
-        console.log("years range: ", response.data);
+        console.log("years range: ", expenseYearsArray);
 
         setRangeOfYears((prevState) => {
           // return [...prevState, ...yearsList];
-          return [...response.data];
+          return [...expenseYearsArray];
         });
       });
 

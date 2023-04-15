@@ -30,10 +30,15 @@ const ExpenseFilter = (props) => {
       <div className="expenses-filter__control">
         <label>Filter by year</label>
         <select value={props.selected} onChange={filterChangeHandler}>
-          <option value="2024">2024</option>
+          {
+            /* <option value="2024">2024</option>
           <option value="2023">2023</option>
           <option value="2022">2022</option>
-          <option value="2021">2021</option>
+          <option value="2021">2021</option> */
+            props.expenseYears.map((year) => {
+              return <option value={year}>{year}</option>;
+            })
+          }
         </select>
       </div>
     </div>
