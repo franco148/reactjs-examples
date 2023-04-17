@@ -47,6 +47,11 @@ const App = () => {
   // useEffect(fetchRegisteredYears);
 
   const fetchInitialExprenseTrackerData = () => {
+    const defaultSelectedYear = new Date().getFullYear().toString();
+    // axios.get("http://localhost:8080/etracker/expenses").then((response) => {
+    //   console.log("Expenses from server: ", response);
+    // });
+
     axios
       .get("http://localhost:8080/etracker/expenses/years")
       .then((response) => {

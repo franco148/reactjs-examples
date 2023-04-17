@@ -36,7 +36,11 @@ const ExpenseFilter = (props) => {
           <option value="2022">2022</option>
           <option value="2021">2021</option> */
             props.expenseYears.map((year) => {
-              return <option value={year}>{year}</option>;
+              return (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              );
             })
           }
         </select>
