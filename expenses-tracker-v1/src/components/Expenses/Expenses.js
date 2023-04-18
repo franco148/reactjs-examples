@@ -7,6 +7,9 @@ import ExpenseList from "./ExpensesList";
 import "./Expenses.css";
 import ExpensesChart from "./ExpensesChart";
 
+import axios from "axios";
+// import moment from
+
 function Expenses(props) {
   const [filteredYear, setFilteredYear] = useState(
     new Date().getFullYear().toString()
@@ -25,6 +28,18 @@ function Expenses(props) {
     //     (expense) => expense.date.getFullYear() == value
     //   );
     // });
+    const initialDateTime = new Date(value, 0, 1).toISOString().split("T")[0];
+    const endDateTime = new Date(value, 11, 31).toISOString().split("T")[0];
+    const groupBy = "MONTHLY";
+
+    console.log("Sending parameters: ", initialDateTime);
+    axios
+      .get(
+        `http://localhost:8080/etracker/expenses?groupBy=${groupBy}&from=${initialDateTime}&to=${endDateTime}`
+      )
+      .then((response) => {
+        console.log("Expenses from server: ", response);
+      });
   };
 
   return (
