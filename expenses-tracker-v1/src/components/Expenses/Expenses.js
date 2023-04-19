@@ -14,12 +14,12 @@ function Expenses(props) {
   const [filteredYear, setFilteredYear] = useState(
     new Date().getFullYear().toString()
   );
-  // const [filteredExpenses, setFilteredExpenses] = useState(props.expenses);
+  const [filteredExpenses, setFilteredExpenses] = useState(props.expenses);
 
-  const filteredExpenses = props.expenses.filter((expense) => {
-    // console.log("Filtered year", filteredYear);
-    return expense.date.getFullYear().toString() === filteredYear;
-  });
+  // const filteredExpenses = props.expenses.filter((expense) => {
+  //   // console.log("Filtered year", filteredYear);
+  //   return expense.expenseDateTime.getFullYear().toString() === filteredYear;
+  // });
 
   const filterChangeHandler = (value) => {
     setFilteredYear(value);

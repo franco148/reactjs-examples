@@ -23,7 +23,7 @@ const DUMMY_EXPENSES = [
 ];
 
 const App = () => {
-  const [expenses, setExpenses] = useState(DUMMY_EXPENSES);
+  const [expenses, setExpenses] = useState([]);
   const [rangeOfYears, setRangeOfYears] = useState([]);
   const [categories, setCategories] = useState([]);
 
@@ -47,10 +47,21 @@ const App = () => {
   // useEffect(fetchRegisteredYears);
 
   const fetchInitialExprenseTrackerData = () => {
-    // const defaultSelectedYear = new Date().getFullYear().toString();
-    // axios.get("http://localhost:8080/etracker/expenses").then((response) => {
-    //   console.log("Expenses from server: ", response);
-    // });
+    const defaultSelectedYear = new Date().getFullYear().toString();
+    const initialDateTime = new Date(2019, 0, 1).toISOString().split("T")[0];
+    const endDateTime = new Date(2019, 11, 31).toISOString().split("T")[0];
+    const groupBy = "NONE";
+
+    axios
+      .get(
+        `http://localhost:8080/etracker/expenses?groupBy=${groupBy}&from=${initialDateTime}&to=${endDateTime}`
+      )
+      .then((response) => {
+        console.log("Expenses from server: ", response);
+        setExpenses((prevExpenses) => {
+          return [...response.data];
+        });
+      });
 
     axios
       .get("http://localhost:8080/etracker/expenses/years")
