@@ -57,7 +57,7 @@ const App = () => {
         `http://localhost:8080/etracker/expenses?groupBy=${groupBy}&from=${initialDateTime}&to=${endDateTime}`
       )
       .then((response) => {
-        console.log("Expenses from server: ", response);
+        console.log("Expenses from server: ", response.data);
         setExpenses((prevExpenses) => {
           return [...response.data];
         });

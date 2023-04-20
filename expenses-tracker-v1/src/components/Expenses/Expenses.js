@@ -64,8 +64,8 @@ function Expenses(props) {
         // })
         // expensesContent
       }
-      <ExpensesChart expenses={filteredExpenses} />
-      <ExpenseList expenses={filteredExpenses} />
+      <ExpensesChart expenses={props.expenses} />
+      <ExpenseList expenses={props.expenses} />
     </Card>
   );
 }
